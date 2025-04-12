@@ -1,15 +1,15 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: black;
     color: #fff;
 }
 
-header{
+header {
     position: relative;
     padding: 0;
     margin: 0;
@@ -18,12 +18,18 @@ header{
     min-height: 65px;
 }
 
-.nav{
+.right-icon{
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid #b3b3b3;
+}
+
+.nav {
     height: 90%;
     gap: 1rem;
 }
 
-.home{
+.home {
     border: none;
     width: 47px;
     height: 85%;
@@ -31,12 +37,12 @@ header{
     background-color: #121212;
 }
 
-.logo img{
+.logo img {
     height: 100%;
     width: 75px;
 }
 
-.search-input{
+.search-input {
     width: 25rem;
     height: 100%;
     border: none;
@@ -44,40 +50,37 @@ header{
     color: #fff;
 }
 
-.search-input input:focus {
+input {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+input:focus {
     outline: none;
     box-shadow: none;
-  }
+}
 
-.search-bar{
+.search-bar {
     gap: 20px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: #1f1f1f;
     border-radius: 50px;
-    width: 480px;
+    width: 80%;
     height: 85%;
 }
 
-.container{
+.container {
     gap: 2px;
 }
 
-.border-white{
+.border-white {
     border: 2px solid white;
 }
 
-.left{
-    width: 25vw;
-    background-color: #121212;
-}
 
-.right{
-    width: 75vw;
-    background-color: #121212;
-}
-
-.more{
+.more {
     margin-right: 5rem;
     width: 70%;
     display: flex;
@@ -86,7 +89,7 @@ header{
     height: 90%;
 }
 
-.B1{
+.B1 {
     font-weight: 700;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -96,7 +99,7 @@ header{
     color: black;
 }
 
-.B2{
+.B2 {
     font-weight: 700;
     display: inline-flex;
     white-space: nowrap;
@@ -111,18 +114,143 @@ header{
     height: 50%;
     width: 15px;
     margin-right: 0.5rem;
-  }
+}
 
-.B3{
+.B3 {
     border: none;
     height: 70%;
     width: 20px;
     background-color: #fff;
 }
 
-.B4{
+.B4 {
     height: 60%;
     width: 34px;
     border-radius: 50px;
     border: none;
+}
+
+.container {
+    /* overflow-y: scroll; */
+    width: 98vw;
+    margin: 1%;
+    margin-top: 0;
+    gap: 10px;
+    height: 75vh;
+}
+
+.left {
+    width: 28%;
+    background-color: #121212;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.right {
+    width: 74%;
+    background-color: #121212;
+    border-radius: 10px;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.Right-content {
+    margin-left: 3%;
+    width: 96%;
+    height: 100%;
+}
+
+.Music-Type {
+    margin-left: 3%;
+    gap: 0.5rem;
+    height: 11%;
+    width: 100%;
+    position: sticky;
+    z-index: 3;
+    top: 0;
+    background-color: #121212;
+}
+
+footer {
+    position: fixed;
+    margin: auto;
+    width: 99vw;
+    height: 13vh;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.R-button {
+    background-color: #363636;
+    color: #fefefe;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: none;
+    border-radius: 30px;
+    height: 60%;
+    font-weight: 700;
+}
+
+.Left-content {
+    width: 100%;
+    height: 100%;
+    padding-left: 3%;
+}
+
+.Your-library {
+
+    width: 100%;
+    height: 10%;
+}
+
+.Your-library div{
+    width: 40%;
+    height: 100%;
+}
+
+.Your-library svg{
+    height: 50%;
+    width: 18%;
+    margin-right: 0.3rem;
+}
+
+.your-lib{
+    color: #b3b3b3;
+}
+
+.create{
+    gap: 1rem;
+    margin-left: 35%;
+}
+
+.b1 {
+    background-color: #1f1f1f;
+    width: auto;
+    height: 60%;
+    border-radius: 30px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-weight: 700;
+    border: none;
+    color: #fefefe;
+}
+
+.b2 {
+    color: #b3b3b3;
+    border: none;
+    background-color: #121212;
+    width: auto;
+    height: 60%;
+}
+
+.b2 svg {
+    width: 70%;
+    height: 70%;
 }

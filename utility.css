@@ -13,3 +13,9 @@
 .invert{
     filter: invert(1);
 }
+.b-red{
+    border: 2px solid red;
+}
+.space-around{
+    justify-content: space-around;
+}
