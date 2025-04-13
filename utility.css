@@ -19,3 +19,12 @@
 .space-around{
     justify-content: space-around;
 }
+.column{
+    flex-direction: column;
+}
+.row{
+    flex-direction: row;
+}
+.inline-flex{
+    display: inline-flex;
+}
