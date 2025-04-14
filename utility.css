@@ -28,3 +28,9 @@
 .inline-flex{
     display: inline-flex;
 }
+.gap{
+    gap: 0.5rem;
+}
+.space-between{
+    justify-content: space-between;
+}

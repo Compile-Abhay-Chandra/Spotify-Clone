@@ -94,6 +94,29 @@
                         </button>
                     </div>
                 </div>
+                <div class="Playlists flex align-center">
+                    <button class="inline-flex align-center justify-center">Playlists</button>
+                </div>
+                <div class="recents flex space-between align-center">
+                    <button>
+                        <svg data-encore-id="icon" role="img" aria-hidden="true"
+                            class="e-9800-icon e-9800-baseline CIVozJ8XNPJ60uMN23Yg" viewBox="0 0 16 16"
+                            style="filter: invert(1); --encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);">
+                            <path
+                                d="M7 1.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5zM.25 7a6.75 6.75 0 1 1 12.096 4.12l3.184 3.185a.75.75 0 1 1-1.06 1.06L11.304 12.2A6.75 6.75 0 0 1 .25 7z" />
+                        </svg>
+                    </button>
+                    <button class="flex gap">
+                        <span>Recents</span>
+                        <svg data-encore-id="icon" role="img" aria-hidden="true"
+                            class="e-9800-icon e-9800-baseline e-9800-icon--auto-mirror" viewBox="0 0 16 16"
+                            style="filter: invert(1); --encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);">
+                            <path
+                                d="M15 14.5H5V13h10v1.5zm0-5.75H5v-1.5h10v1.5zM15 3H5V1.5h10V3zM3 3H1V1.5h2V3zm0 11.5H1V13h2v1.5zm0-5.75H1v-1.5h2v1.5z" />
+                        </svg>
+                    </button>
+                    </span>
+                </div>
             </div>
 
         </div>
@@ -250,7 +273,7 @@
                             d="M3.3 1a.7.7 0 0 1 .7.7v5.15l9.95-5.744a.7.7 0 0 1 1.05.606v12.575a.7.7 0 0 1-1.05.607L4 9.149V14.3a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1.6z" />
                     </svg>
                 </button>
-                <button class="inline-flex align-center justify-center">
+                <button class="inline-flex align-center justify-center" id="toggle">
                     <?xml version="1.0" encoding="UTF-8"?>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#000000">
                         <path
@@ -275,9 +298,9 @@
                 </button>
             </div>
             <div class="seek-bar">
-                <span class="current-time">0:00</span>
+                <span class="current-time" id="current-time">0:00</span>
                 <input type="range" class="progress" value="0" min="0" max="100">
-                <span class="duration">1:02</span>
+                <span class="duration" id="duration">1:02</span>
             </div>
         </div>
     </footer>
