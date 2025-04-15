@@ -258,6 +258,7 @@ input:focus {
 }
 
 .Left-content {
+    overflow-y: scroll;
     width: 100%;
     height: 100%;
     padding-left: 3%;
@@ -550,4 +551,31 @@ input:focus {
     border: none;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.song-list{
+    margin: 0 10px;
+    width: 95%;
+    height: 74%;
+    overflow-y: scroll;
+}
+
+.song{
+    padding-left: 10px;
+    gap: 1.5rem;
+    width: 100%;
+    min-height: 5rem;
+}
+
+.song:hover{
+    border-radius: 10px;
+    background-color: #1f1f1f;
+}
+
+.song ul{
+    list-style: none;
+    font-weight: 500;
+}
+.song ul li:nth-child(2){
+    color: #adadad;
 }

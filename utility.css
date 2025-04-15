@@ -34,3 +34,9 @@
 .space-between{
     justify-content: space-between;
 }
+.margine-1{
+    margin: 1rem;
+}
+.margineBottom-1{
+    margin-bottom: 1rem;
+}
