@@ -565,9 +565,11 @@ input:focus {
     gap: 1.5rem;
     width: 100%;
     min-height: 5rem;
+    cursor: pointer;
 }
 
-.song:hover{
+.song:hover,
+.song.playing{
     border-radius: 10px;
     background-color: #1f1f1f;
 }
