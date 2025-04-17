@@ -82,10 +82,13 @@ async function main() {
         
         document.querySelectorAll(".song").forEach(card => card.classList.remove("playing"));
         document.getElementById(index).classList.add("playing");
+
+        
+        document.getElementById(index).scrollIntoView({ behavior: "smooth", block: "center" });
     });
-
+    
     const next = document.querySelector(".next");
-
+    
     next.addEventListener("click", () => {
         
         index = (index + 1) % songs.length;  // loop to start if at end
@@ -94,6 +97,9 @@ async function main() {
         
         document.querySelectorAll(".song").forEach(card => card.classList.remove("playing"));
         document.getElementById(index).classList.add("playing");
+
+
+        document.getElementById(index).scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
     let audio = currentSong;
@@ -164,5 +170,14 @@ async function main() {
         audio.currentTime = newTime;
     });
 
+
 }
 main();
+
+const toggleSidebar = document.getElementById("toggle-sidebar");
+const sidebar = document.querySelector(".left");
+
+toggleSidebar.addEventListener("click", () => {
+    sidebar.classList.toggle("left_minimize");
+    sidebar.classList.toggle("left");
+});

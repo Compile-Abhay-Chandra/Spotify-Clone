@@ -13,7 +13,7 @@ header {
     position: relative;
     padding: 0;
     margin: 0;
-    width: 98vw;
+    width: 100vw;
     height: 8vh;
     min-height: 65px;
 }
@@ -26,6 +26,7 @@ header {
 
 .nav {
     height: 90%;
+    width: 50%;
     gap: 1rem;
 }
 
@@ -51,6 +52,7 @@ header {
 }
 
 input {
+    width: auto;
     border: none;
     outline: none;
     background: transparent;
@@ -72,9 +74,9 @@ input:focus {
 }
 
 
-.border-white {
+/* .border-white {
     border: 2px solid white;
-}
+} */
 
 
 .more {
@@ -141,6 +143,17 @@ input:focus {
     background-color: #121212;
     border-radius: 10px;
     height: 100%;
+    overflow-y: hidden;
+}
+
+
+.left_minimize {
+    padding: 0.5%;
+    width: 5%;
+    background-color: #121212;
+    border-radius: 10px;
+    height: 100%;
+    overflow-y: hidden;
 }
 
 
@@ -167,6 +180,8 @@ input:focus {
     width: 100%;
 }
 
+
+
 .recents button {
     color: #fff;
     border: none;
@@ -176,7 +191,7 @@ input:focus {
 
 .recents button:nth-of-type(1) {
     width: 30px;
-    height: 30px;    
+    height: 30px;
 }
 
 .recents button:nth-of-type(1):hover {
@@ -200,6 +215,8 @@ input:focus {
     overflow-y: auto;
     position: relative;
     overflow-x: hidden;
+    flex-grow: 1;
+  transition: width 0.4s ease;
 }
 
 .Right-content {
@@ -258,31 +275,39 @@ input:focus {
 }
 
 .Left-content {
-    overflow-y: scroll;
+    overflow-y: hidden;
     width: 100%;
     height: 100%;
     padding-left: 3%;
 }
 
 .Your-library {
-
+    overflow-y: hidden;
     width: 100%;
     height: 10%;
 }
 
 .Your-library div {
-    width: 40%;
+    width: auto;
     height: 100%;
 }
 
+.toggle-icon{
+    width: 50px;
+    height: auto;
+}
+
 .Your-library svg {
-    height: 50%;
-    width: 18%;
     margin-right: 0.3rem;
 }
 
 .your-lib {
     color: #b3b3b3;
+}
+
+.your-lib svg {
+    width: 24px;
+    height: 24px;
 }
 
 .create {
@@ -553,14 +578,14 @@ input:focus {
     cursor: pointer;
 }
 
-.song-list{
+.song-list {
     margin: 0 10px;
     width: 95%;
     height: 74%;
     overflow-y: scroll;
 }
 
-.song{
+.song {
     padding-left: 10px;
     gap: 1.5rem;
     width: 100%;
@@ -569,15 +594,38 @@ input:focus {
 }
 
 .song:hover,
-.song.playing{
+.song.playing {
     border-radius: 10px;
     background-color: #1f1f1f;
 }
 
-.song ul{
+.song ul {
     list-style: none;
     font-weight: 500;
 }
-.song ul li:nth-child(2){
+
+.song ul li:nth-child(2) {
     color: #adadad;
+}
+
+@media (max-width: 1000px) {
+    
+    .search-bar{
+        width: auto;
+    }
+    .home{
+        display: none;
+    }
+    .search-bar input{
+        display: none;
+    }
+    .right-icon{
+        display: none;
+    }
+    header{
+        position: relative;
+        background-color: #1ed760;
+        display: none;
+    }
+  
 }
