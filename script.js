@@ -180,4 +180,14 @@ const sidebar = document.querySelector(".left");
 toggleSidebar.addEventListener("click", () => {
     sidebar.classList.toggle("left_minimize");
     sidebar.classList.toggle("left");
+    document.getElementById("toggle-sidebar").classList.toggle("width");
+    document.querySelector(".Your-library").classList.toggle("justify-center");
+    document.querySelector(".song-list").classList.toggle("display-none");
+    document.querySelector(".Playlists").classList.toggle("display-none");
+    document.querySelector(".recents").classList.toggle("display-none");
+    document.querySelector(".your-lib > div > p").classList.toggle("display-none");
+    document.getElementById("toggle-sidebar").classList.toggle("justify-center");
+    document.querySelector(".b1").classList.toggle("display-none");
+    document.querySelector(".b2").classList.toggle("display-none");
+    document.querySelector(".create").classList.toggle("display-none");
 });

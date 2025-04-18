@@ -154,7 +154,25 @@ input:focus {
     border-radius: 10px;
     height: 100%;
     overflow-y: hidden;
+
 }
+
+/* .icon-svg {
+    width: 24px;
+    height: 24px;
+    display: flex;
+}
+
+.left_minimize .toggle-icon {
+    width: 100%;
+    justify-content: center;
+}
+
+.left_minimize .toggle-icon svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 0;
+} */
 
 
 .Playlists {
@@ -350,7 +368,7 @@ input:focus {
     position: relative;
     border-radius: 10px;
     flex-direction: column;
-    width: 20%;
+    width: min(20%, 200px);
     height: 60%;
 }
 

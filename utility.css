@@ -40,3 +40,19 @@
 .margineBottom-1{
     margin-bottom: 1rem;
 }
+
+.display-none{
+    display: none;
+}
+
+.width{
+    width: 100%;
+}
+
+.margine-0{
+    margin: 0;
+}
+
+.grow{
+    flex-grow: none;
+}
