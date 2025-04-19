@@ -51,6 +51,7 @@ async function main() {
     SongUl.innerHTML = html;
 
     let index = -1;
+    let currentSongName = "";
 
     const songDivs = document.querySelectorAll(".song");
     songDivs.forEach(div => {
@@ -58,6 +59,11 @@ async function main() {
             index = div.id;
             currentSong.src = songs[index];
             currentSong.play();
+
+            currentSongName = (songs[index].split("/songs/")[1]).split(".mp3")[0];
+            // Update display with current song name
+            document.querySelector(".image > p").textContent = currentSongName;
+
             toggle.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                 <path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"/>
@@ -170,6 +176,7 @@ async function main() {
         audio.currentTime = newTime;
     });
 
+    document.querySelector(".image > p").innerHTML((song.split("/songs/")[1]).split(".mp3")[0]);
 
 }
 main();
@@ -191,3 +198,16 @@ toggleSidebar.addEventListener("click", () => {
     document.querySelector(".b2").classList.toggle("display-none");
     document.querySelector(".create").classList.toggle("display-none");
 });
+
+const menu = document.getElementById("menuToggle");
+menu.addEventListener("click", ()=>{
+
+    document.querySelector(".sidebar-content").classList.toggle("show");
+    document.querySelector(".sidebar-content").classList.remove("hidden");
+})
+
+const cross = document.getElementById("cross");
+cross.addEventListener("click", ()=>{
+    
+    document.querySelector(".sidebar-content").classList.remove("show");
+})

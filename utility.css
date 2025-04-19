@@ -56,3 +56,11 @@
 .grow{
     flex-grow: none;
 }
+
+.wrap{
+    flex-wrap: wrap;
+}
+
+.hidden{
+    display: none;
+}

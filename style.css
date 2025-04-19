@@ -14,8 +14,7 @@ header {
     padding: 0;
     margin: 0;
     width: 100vw;
-    height: 8vh;
-    min-height: 65px;
+    height: 9vh;
 }
 
 .right-icon {
@@ -73,9 +72,15 @@ input:focus {
     height: 85%;
 }
 
+.sidebar {
+    display: none;
+}
 
-/* .border-white {
-    border: 2px solid white;
+/* .sidebar-content{
+    z-index: -10;
+    width: 0;
+    height: 0;
+    display: none;
 } */
 
 
@@ -234,7 +239,7 @@ input:focus {
     position: relative;
     overflow-x: hidden;
     flex-grow: 1;
-  transition: width 0.4s ease;
+    transition: width 0.4s ease;
 }
 
 .Right-content {
@@ -310,7 +315,7 @@ input:focus {
     height: 100%;
 }
 
-.toggle-icon{
+.toggle-icon {
     width: 50px;
     height: auto;
 }
@@ -368,7 +373,7 @@ input:focus {
     position: relative;
     border-radius: 10px;
     flex-direction: column;
-    width: min(20%, 200px);
+    width: 200px;
     height: 60%;
 }
 
@@ -443,10 +448,9 @@ input:focus {
 }
 
 .footer-top-right {
-    position: absolute;
-    right: 4%;
-    gap: 20px;
+    gap: 10px;
 }
+
 
 .footer-top-right button {
     display: inline-flex;
@@ -470,7 +474,7 @@ input:focus {
 
 .footer-column {
     flex: 1;
-    min-width: 200px;
+    min-width: 170px;
 }
 
 .footer-heading {
@@ -514,8 +518,6 @@ input:focus {
 }
 
 .copyright {
-    position: absolute;
-    right: 5%;
     color: #919496;
     font-size: 12px;
 }
@@ -524,6 +526,21 @@ input:focus {
     height: 100%;
     width: 50%;
     margin: auto;
+}
+
+.image{
+    height: 60%;
+    width: auto;
+    position: absolute;
+    justify-content: start;
+    top: 15px;
+    left: 15px;
+    gap: 0.5rem;
+}
+
+.image p{
+    display: flex;
+    align-items: center;
 }
 
 .Playing {
@@ -555,6 +572,10 @@ input:focus {
     border: none;
     height: 50%;
     width: 50%;
+}
+
+#toggle{
+    background-color: white;
 }
 
 .controls button svg:hover {
@@ -626,24 +647,181 @@ input:focus {
     color: #adadad;
 }
 
-@media (max-width: 1000px) {
-    
-    .search-bar{
+@media (max-width: 1100px) {
+
+    .search-bar {
         width: auto;
     }
-    .home{
+
+    .home {
         display: none;
     }
-    .search-bar input{
+
+    .search-bar input {
         display: none;
     }
-    .right-icon{
+
+    .right-icon {
         display: none;
     }
-    header{
+
+    header {
         position: relative;
-        background-color: #1ed760;
+        display: none;
+        height: 55px;
+    }
+
+    .footer-top-left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer-top {
+        flex-direction: column;
+    }
+
+    .Right-content h1 {
+        font-size: 22px;
+    }
+
+    .card {
+        width: 170px;
+        height: 230px;
+    }
+
+    .card p {
+        font-size: 12px;
+    }
+
+    .left {
         display: none;
     }
-  
+
+    .currently-playing {
+        background-color: #041921;
+        position: fixed;
+        margin: auto;
+        width: 99vw;
+        height: 55px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 3;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .currently-playing button {
+        display: none;
+    }
+
+    #toggle {
+        display: block;
+        margin-left: auto;
+        margin-right: 10px;
+    }
+
+    .Playing {
+        width: 100%;
+        display: flex;
+        gap: 15px;
+    }
+
+    .B1,
+    .B4,
+    .B3 {
+        display: none;
+    }
+
+    .sidebar {
+        position: absolute;
+        right: 10px;
+        z-index: 5;
+        display: inline;
+        width: 5%;
+        height: 100%;
+        align-content: center;
+        background-color: transparent
+    }
+
+    .sidebar button {
+        background-color: transparent;
+        border: none;
+    }
+
+    .sidebar-content {
+        background-color: #121212;
+        position: fixed;
+        z-index: 10;
+        width: 101vw;
+        height: 100vh;
+        padding-left: 10%;
+        transform: translateX(200%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-content.show {
+        transform: translateX(0);
+    }
+
+    #cross {
+        height: 10%;
+        align-content: center;
+    }
+
+    .cross {
+        display: flex;
+        justify-content: end;
+        padding-right: 5%;
+    }
+
+    .seek-bar .current-time,
+    .seek-bar .duration {
+        display: none;
+    }
+
+    .seek-bar {
+        width: 99%;
+        display: flex;
+        position: absolute;
+        bottom: 1px;
+    }
+
+    .controls {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .seek-bar input {
+        width: 100%;
+        border: 2px solid black;
+    }
+
+    .spotify-footer {
+        margin-bottom: 10%;
+    }
+
+    .image{
+        height: 80%;
+        width: auto;
+        position: absolute;
+        justify-content: start;
+        top: 5px;
+        left: 5px;
+    }
+
+    .seek-bar .progress::-webkit-slider-thumb {
+        background: transparent; 
+    }
+
+    #toggle svg{
+        filter: invert(1);
+    }
+
+    #toggle{
+        background-color: transparent;
+    }
 }
