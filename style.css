@@ -528,7 +528,7 @@ input:focus {
     margin: auto;
 }
 
-.image{
+.image {
     height: 60%;
     width: auto;
     position: absolute;
@@ -538,7 +538,7 @@ input:focus {
     gap: 0.5rem;
 }
 
-.image p{
+.image p {
     display: flex;
     align-items: center;
 }
@@ -574,7 +574,7 @@ input:focus {
     width: 50%;
 }
 
-#toggle{
+#toggle {
     background-color: white;
 }
 
@@ -645,6 +645,62 @@ input:focus {
 
 .song ul li:nth-child(2) {
     color: #adadad;
+}
+
+.expand {
+    z-index: 100;
+    width: 100%;
+    height: auto;
+}
+
+.cover-album {
+    height: 50%;
+    width: 100%;
+}
+
+.tools {
+    width: 100%;
+    height: 18%;
+}
+
+.tracklist {
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+}
+
+.tracklist thead th {
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    border-bottom: 1px solid #444;
+}
+
+.album-logo img{
+    width: 24px;
+    height: 24px;
+}
+
+.tracklist tbody tr {
+    transition: background-color 0.2s;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tracklist tbody tr:hover {
+    background: #2a2a2a;
+    cursor: pointer;
+}
+
+.tracklist td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+.tracklist tr.playing {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 1100px) {
@@ -797,14 +853,14 @@ input:focus {
 
     .seek-bar input {
         width: 100%;
-        border: 2px solid black;
+        color: #fefefe;
     }
 
     .spotify-footer {
         margin-bottom: 10%;
     }
 
-    .image{
+    .image {
         height: 80%;
         width: auto;
         position: absolute;
@@ -814,14 +870,14 @@ input:focus {
     }
 
     .seek-bar .progress::-webkit-slider-thumb {
-        background: transparent; 
+        background: transparent;
     }
 
-    #toggle svg{
+    #toggle svg {
         filter: invert(1);
     }
 
-    #toggle{
+    #toggle {
         background-color: transparent;
     }
 }
