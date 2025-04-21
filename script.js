@@ -14,10 +14,9 @@ async function getSong(playlist) {
     return songs
 }
 
-async function getAlbum(){
+async function getAlbum() {
     let a = await fetch(`http://127.0.0.1:3000/Spotify-Clone/songs`);
     let response = await a.text();
-    console.log(response)
     let div = document.createElement("div");
     div.innerHTML = response;
     let Album = [];
@@ -27,11 +26,30 @@ async function getAlbum(){
         let folderName = element.href.split("/").filter(Boolean).pop();
         Album.push(folderName);
     }
-    // console.log(Album.slice(1));
+    console.log(Album.slice(1));
     return Album.slice(1);
 
 }
 getAlbum();
+
+
+async function getAlbumCoverImage(playlist) {
+    let a = await fetch(`http://127.0.0.1:3000/Spotify-Clone/songs/${playlist}`);
+    let response = await a.text();
+    let div = document.createElement("div");
+    div.innerHTML = response;
+    let Album = [];
+    let as = div.getElementsByTagName("a");
+    for (let index = 0; index < as.length; index++) {
+        const element = as[index];
+        let folderName = element.href.split("/").filter(Boolean).pop();
+        Album.push(folderName);
+    }
+    console.log(Album.slice(1));
+    return Album.slice(1);
+
+}
+// getAlbumCoverImage("music");
 
 function getDuration(song) {  // sending the song url
     return new Promise((resolve) => {
@@ -65,7 +83,7 @@ function getCurrentTime(song) {  // sending the song url
 
 let globalAudio = new Audio();
 
-function Controls(indexObj, songs, currentSong, currentSongName, className,idPrefix) {
+function Controls(indexObj, songs, currentSong, currentSongName, className, idPrefix) {
 
     const previous = document.querySelector(".previous");
 
@@ -127,14 +145,16 @@ function Controls(indexObj, songs, currentSong, currentSongName, className,idPre
     };
 }
 
+let Album_Name;
+
 async function dynamicAlbum() {
     let Albums = await getAlbum();
     let Cards = document.querySelector(".cards");
     let card = "";
 
-    Albums.forEach((album) =>{
-        card += `<div class="card flex">
-                        <img src="http://127.0.0.1:3000/Spotify-Clone/songs/${album}/logo.png"
+    Albums.forEach((album) => {
+        card += `<div class="card flex" id="${album}">
+                        <img src="http://127.0.0.1:3000/Spotify-Clone/songs/${album}/logo.png" class="albumCover"
                             alt="">
                         <button class="play-button">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" fill="none">
@@ -150,7 +170,17 @@ async function dynamicAlbum() {
 
 dynamicAlbum()
 
+
 async function dynamicAlbumlist(Playlist) {
+
+    document.querySelector(".expand").classList.remove("hidden")
+
+    // creating album cover
+    let Cover = document.querySelector(".cover-album");
+    Cover.innerHTML = `<img src="http://127.0.0.1:3000/Spotify-Clone/songs/${Playlist}/logo.png" alt="cover_picture"></img>
+    <p>${Playlist}</p>`
+
+    // creating the list of musics inside the Playlist folder
     let songs = await getSong(`${Playlist}`);
     let songPlaylist = document.querySelector(".tracklist > tbody");
     let playlist = "";
@@ -211,7 +241,7 @@ async function dynamicPlaylist(Playlist) {
 
 
 async function initializePlayer() {
-    await dynamicAlbumlist("tones");
+    // await dynamicAlbumlist("tones");
     await PlayOnClickdynamicAlbumlist("tones");
 
     await dynamicPlaylist("My_Playlist");
@@ -254,7 +284,7 @@ async function PlayOnClickdynamicPlaylist(song) {
             `;
             document.querySelectorAll(".song").forEach(card => card.classList.remove("playing"));
             div.classList.add("playing");
-            Controls(indexObj, songs, currentSong, currentSongName, "song","playlist-");
+            Controls(indexObj, songs, currentSong, currentSongName, "song", "playlist-");
 
         });
     });
@@ -311,6 +341,38 @@ async function PlayOnClickdynamicAlbumlist(song) {
 
 
 async function main() {
+
+    const container = document.querySelector(".cards");
+
+    container.addEventListener("click", async e => {
+        const card = e.target.closest(".card");
+        if (card) {
+        await dynamicAlbumlist(`${card.id}`);
+        document.querySelector(".Music-Type").classList.add("hidden");
+        document.querySelector(".dynamic-text").innerHTML = "You may also like";
+
+        document.querySelector(".tracklist > tbody").addEventListener("click", async (e) => {
+            // const row = e.target.closest("tr.albumsong");
+            // if (row) {
+            //     // Your click handler code here
+            //     const songs = await getSong(currentAlbumPlaylist); // You'll need to store the current playlist name
+            //     const idParts = row.id.split('-');
+            //     const index = parseInt(idParts[1]);
+            //     // Rest of your code...
+            // }
+            await PlayOnClickdynamicPlaylist(e.target.closest(card.id));
+            console.log("clicked")
+        });
+    }
+    });
+
+    document.getElementById("collapse-album").addEventListener("click",()=>{
+        document.querySelector(".expand").classList.add("hidden")
+        document.querySelector(".Music-Type").classList.remove("hidden");
+        document.querySelector(".dynamic-text").innerHTML = "To get you started"
+
+    });
+
 
     let audio = globalAudio;
 
