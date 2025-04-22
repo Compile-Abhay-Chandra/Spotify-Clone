@@ -26,12 +26,9 @@ async function getAlbum() {
         let folderName = element.href.split("/").filter(Boolean).pop();
         Album.push(folderName);
     }
-    console.log(Album.slice(1));
     return Album.slice(1);
 
 }
-getAlbum();
-
 
 async function getAlbumCoverImage(playlist) {
     let a = await fetch(`http://127.0.0.1:3000/Spotify-Clone/songs/${playlist}`);
@@ -45,11 +42,9 @@ async function getAlbumCoverImage(playlist) {
         let folderName = element.href.split("/").filter(Boolean).pop();
         Album.push(folderName);
     }
-    console.log(Album.slice(1));
     return Album.slice(1);
 
 }
-// getAlbumCoverImage("music");
 
 function getDuration(song) {  // sending the song url
     return new Promise((resolve) => {
@@ -66,22 +61,27 @@ function getDuration(song) {  // sending the song url
     });
 }
 
-function getCurrentTime(song) {  // sending the song url
-    return new Promise((resolve) => {
-        const audio = new Audio(song);
-        audio.addEventListener('loadedmetadata', () => {
-            let duration = audio.currentTime;
-            let mins = Math.floor(duration / 60);
-            let secs = duration % 60;
-            secs = Math.floor(secs);
-            secs = secs < 10 ? '0' + secs : secs;
-            duration = `${mins}:${secs}`;
-            resolve(duration);
-        });
-    });
+let CurrentTime;
+function getCurrentTime(song) {
+    // Clear any existing intervals to prevent multiple updaters
+    if (CurrentTime) {
+        clearInterval(CurrentTime);
+    }
+
+    CurrentTime = setInterval(() => {
+        let duration = song.currentTime;
+        let mins = Math.floor(duration / 60);
+        let secs = duration % 60;
+        secs = Math.floor(secs);
+        secs = secs < 10 ? '0' + secs : secs;
+        let newTime = `${mins}:${secs}`;
+        document.getElementById("current-time").textContent = newTime;
+    }, 500);
 }
 
 let globalAudio = new Audio();
+let progressUpdateInterval;
+
 
 function Controls(indexObj, songs, currentSong, currentSongName, className, idPrefix) {
 
@@ -101,6 +101,12 @@ function Controls(indexObj, songs, currentSong, currentSongName, className, idPr
         });
         currentSongName = songs[indexObj.value].split("/songs/")[1].split(".mp3")[0];
         document.querySelector(".image > p").textContent = currentSongName;
+
+        getDuration(`${currentSong.src}`).then(duration => {
+            document.getElementById("duration").innerHTML = duration;
+        });
+
+        getCurrentTime(currentSong);
     };
 
     const next = document.querySelector(".next");
@@ -119,9 +125,43 @@ function Controls(indexObj, songs, currentSong, currentSongName, className, idPr
         });
         currentSongName = songs[indexObj.value].split("/songs/")[1].split(".mp3")[0];
         document.querySelector(".image > p").textContent = currentSongName;
-    };
 
+        getDuration(`${currentSong.src}`).then(duration => {
+            document.getElementById("duration").innerHTML = duration;
+        });
+
+        getCurrentTime(currentSong);
+
+    };
+    // let audio = globalAudio;
     let audio = currentSong;
+
+    const progress = document.querySelector('.progress');
+
+    // green seek bar
+    audio.addEventListener("loadeddata", () => {
+        // Clear any existing interval first
+        if (progressUpdateInterval) {
+            clearInterval(progressUpdateInterval);
+        }
+
+        // Create new interval and store the reference
+        progressUpdateInterval = setInterval(() => {
+            // Only update if audio duration is valid to prevent NaN issues
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+                progress.value = (audio.currentTime / audio.duration) * 100;
+                const val = (progress.value - progress.min) / (progress.max - progress.min) * 100;
+                progress.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${val}%, #555 ${val}%, #555 100%)`;
+            }
+        }, 100);
+    });
+
+    // the audio time also updates when user interacts with the progress bar
+    progress.addEventListener('input', function () {
+        const newTime = (this.value / 100) * audio.duration;
+        audio.currentTime = newTime;
+    });
+
     const toggle = document.getElementById("toggle");
     toggle.onclick = () => {
         if (audio.paused) {
@@ -145,8 +185,6 @@ function Controls(indexObj, songs, currentSong, currentSongName, className, idPr
     };
 }
 
-let Album_Name;
-
 async function dynamicAlbum() {
     let Albums = await getAlbum();
     let Cards = document.querySelector(".cards");
@@ -168,9 +206,6 @@ async function dynamicAlbum() {
     Cards.innerHTML = card;
 }
 
-dynamicAlbum()
-
-
 async function dynamicAlbumlist(Playlist) {
 
     document.querySelector(".expand").classList.remove("hidden")
@@ -178,7 +213,9 @@ async function dynamicAlbumlist(Playlist) {
     // creating album cover
     let Cover = document.querySelector(".cover-album");
     Cover.innerHTML = `<img src="http://127.0.0.1:3000/Spotify-Clone/songs/${Playlist}/logo.png" alt="cover_picture"></img>
-    <p>${Playlist}</p>`
+    <p><div class="marquee">
+    <p>${Playlist}</p>
+  </div></p>`
 
     // creating the list of musics inside the Playlist folder
     let songs = await getSong(`${Playlist}`);
@@ -197,8 +234,8 @@ async function dynamicAlbumlist(Playlist) {
                         <td class="album-logo"><img src="image/music.png" alt=""></td>
                         <td class="title">
                           <div class="title-info">
-                            <span class="track-name">${(song.split("/songs/")[1]).split(".mp3")[0]}</span><br>
-                            <span class="artist">Abhay</span>
+                            <span class="track-name">${((song.split("/songs/")[1]).split(".mp3")[0]).split(`${Playlist}/`)[1]}</span><br>
+                            <span class="artist">${Playlist}</span>
                           </div>
                         </td>
                         <td class="duration">${durations[index]}</td>
@@ -206,8 +243,6 @@ async function dynamicAlbumlist(Playlist) {
     });
     songPlaylist.innerHTML = playlist
 }
-
-
 
 async function dynamicPlaylist(Playlist) {
     let songs = await getSong(`${Playlist}`);
@@ -231,7 +266,7 @@ async function dynamicPlaylist(Playlist) {
                                 d="M122.445 512c-46.029 0-83.472-29.954-83.472-66.777s37.443-66.777 83.472-66.777 83.472 29.954 83.472 66.777-37.443 66.777-83.472 66.777z" />
                         </svg>
                         <ul>
-                            <li>${(song.split("/songs/")[1]).split(".mp3")[0]}</li>
+                            <li>${((song.split("/songs/")[1]).split(".mp3")[0]).split("My_Playlist/")[1]}</li>
                             <li>Abhay</li>
                         </ul>
                     </div>`;
@@ -239,16 +274,11 @@ async function dynamicPlaylist(Playlist) {
     SongUl.innerHTML = html;
 }
 
-
 async function initializePlayer() {
-    // await dynamicAlbumlist("tones");
-    await PlayOnClickdynamicAlbumlist("tones");
 
     await dynamicPlaylist("My_Playlist");
     await PlayOnClickdynamicPlaylist("My_Playlist");
 }
-
-initializePlayer();
 
 async function PlayOnClickdynamicPlaylist(song) {
     let currentSong = new Audio();
@@ -268,8 +298,9 @@ async function PlayOnClickdynamicPlaylist(song) {
             indexObj.value = index;
 
             currentSong.src = songs[index];
+
             globalAudio = currentSong;
-            // currentSong.play();
+
             globalAudio.play()
 
             currentSongName = (songs[index].split("/songs/")[1]).split(".mp3")[0];
@@ -286,23 +317,25 @@ async function PlayOnClickdynamicPlaylist(song) {
             div.classList.add("playing");
             Controls(indexObj, songs, currentSong, currentSongName, "song", "playlist-");
 
+            getDuration(`${currentSong.src}`).then(duration => {
+                document.getElementById("duration").innerHTML = duration;
+            });
+
+            getCurrentTime(currentSong);
         });
     });
 
 }
 
-
-
 async function PlayOnClickdynamicAlbumlist(song) {
     let currentSong = new Audio();
     let songs = await getSong(`${song}`);
-    console.log(songs.length);
 
     let indexObj = { value: -1 };
     let currentSongName = "";
 
     const AlbumSongRows = document.querySelectorAll(".tracklist > tbody > tr");
-    console.log(AlbumSongRows.length);
+
     AlbumSongRows.forEach(row => {
         row.addEventListener("click", () => {
             globalAudio.pause()
@@ -316,7 +349,6 @@ async function PlayOnClickdynamicAlbumlist(song) {
             globalAudio = currentSong;
             // currentSong.play();
             globalAudio.play()
-            console.log("Click registerd for ", index)
 
             currentSongName = (songs[index].split("/songs/")[1]).split(".mp3")[0];
             // Update display with current song name
@@ -332,94 +364,44 @@ async function PlayOnClickdynamicAlbumlist(song) {
             row.classList.add("playing");
             Controls(indexObj, songs, currentSong, currentSongName, "albumsong", "album-");
 
+            getDuration(`${currentSong.src}`).then(duration => {
+                document.getElementById("duration").innerHTML = duration;
+            });
+
+            getCurrentTime(currentSong);
         });
     });
 
 }
 
-
-
-
 async function main() {
+
+    dynamicAlbum()
+    initializePlayer();
 
     const container = document.querySelector(".cards");
 
     container.addEventListener("click", async e => {
         const card = e.target.closest(".card");
         if (card) {
-        await dynamicAlbumlist(`${card.id}`);
-        document.querySelector(".Music-Type").classList.add("hidden");
-        document.querySelector(".dynamic-text").innerHTML = "You may also like";
+            await dynamicAlbumlist(`${card.id}`);
+            document.querySelector(".Music-Type").classList.add("hidden");
+            document.querySelector(".dynamic-text").innerHTML = "You may also like";
 
-        document.querySelector(".tracklist > tbody").addEventListener("click", async (e) => {
-            // const row = e.target.closest("tr.albumsong");
-            // if (row) {
-            //     // Your click handler code here
-            //     const songs = await getSong(currentAlbumPlaylist); // You'll need to store the current playlist name
-            //     const idParts = row.id.split('-');
-            //     const index = parseInt(idParts[1]);
-            //     // Rest of your code...
-            // }
-            await PlayOnClickdynamicPlaylist(e.target.closest(card.id));
-            console.log("clicked")
-        });
-    }
+            await PlayOnClickdynamicAlbumlist(card.id);
+            document.querySelector(".cover-album").scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
     });
 
-    document.getElementById("collapse-album").addEventListener("click",()=>{
+    document.getElementById("collapse-album").addEventListener("click", () => {
         document.querySelector(".expand").classList.add("hidden")
         document.querySelector(".Music-Type").classList.remove("hidden");
         document.querySelector(".dynamic-text").innerHTML = "To get you started"
 
     });
-
-
-    let audio = globalAudio;
-
-
-    audio.addEventListener("loadeddata", () => {
-        let duration = audio.duration;
-
-        let mins = Math.floor(duration / 60);
-        let secs = duration % 60;
-        secs = Math.floor(secs);
-        secs = secs < 10 ? '0' + secs : secs;
-        duration = `${mins}:${secs}`;
-
-        document.getElementById("duration").textContent = duration;
-    });
-
-    const progress = document.querySelector('.progress');
-
-
-    audio.addEventListener("loadeddata", () => {
-        setInterval(() => {
-            let duration = audio.currentTime;
-            let mins = Math.floor(duration / 60);
-            let secs = duration % 60;
-            secs = Math.floor(secs);
-            secs = secs < 10 ? '0' + secs : secs;
-            duration = `${mins}:${secs}`;
-            document.getElementById("current-time").textContent = duration;
-            const progressValue = (audio.currentTime / audio.duration) * 100;
-            progress.value = progressValue;
-        }, 1000);
-    });
-
-    // green seek bar
-    audio.addEventListener("loadeddata", () => {
-        setInterval(() => {
-            const val = (progress.value - progress.min) / (progress.max - progress.min) * 100;
-            progress.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${val}%, #555 ${val}%, #555 100%)`;
-        }, 100);
-    });
-
-    // the audio time also updates when user interacts with the progress bar
-    progress.addEventListener('input', function () {
-        const newTime = (this.value / 100) * audio.duration;
-        audio.currentTime = newTime;
-    });
-
 }
 main();
 

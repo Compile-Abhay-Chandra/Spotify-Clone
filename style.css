@@ -76,14 +76,6 @@ input:focus {
     display: none;
 }
 
-/* .sidebar-content{
-    z-index: -10;
-    width: 0;
-    height: 0;
-    display: none;
-} */
-
-
 .more {
     margin-right: 5rem;
     width: 70%;
@@ -161,23 +153,6 @@ input:focus {
     overflow-y: hidden;
 
 }
-
-/* .icon-svg {
-    width: 24px;
-    height: 24px;
-    display: flex;
-}
-
-.left_minimize .toggle-icon {
-    width: 100%;
-    justify-content: center;
-}
-
-.left_minimize .toggle-icon svg {
-    width: 24px;
-    height: 24px;
-    margin-right: 0;
-} */
 
 
 .Playlists {
@@ -367,6 +342,7 @@ input:focus {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    overflow-x: auto;
 }
 
 .card {
@@ -666,10 +642,39 @@ input:focus {
     height: 220px;
 }
 
-.cover-album p {
+/* .cover-album p {
     font-size: 50px;
     font-weight: 700;
+} */
+
+.marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1;
+    /* let it grow to fill available space */
+    position: relative;
 }
+
+/* the moving text */
+.marquee p {
+    font-size: 50px;
+    font-weight: 700;
+    display: inline-block;
+    /* padding-left: 100%;    push it off‑screen to the right */
+    animation: marquee 5s linear infinite;
+    margin: 0;
+    /* reset default <p> margins */
+}
+
+/* @keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+} */
 
 .tools {
     justify-content: space-between;
@@ -786,13 +791,30 @@ input:focus {
         font-size: 22px;
     }
 
+    .cards {
+        gap: 20px;
+        overflow-x: auto;
+    }
+
+    .card img {
+        width: 125px;
+        height: 150px;
+        border-radius: 10px;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+    .extraInf{
+        gap: 20px;
+    }
+
     .card {
         width: 170px;
-        height: 230px;
+        height: 215px;
     }
 
     .card p {
-        font-size: 12px;
+        font-size: 18px;
     }
 
     .left {
@@ -925,5 +947,42 @@ input:focus {
 
     #toggle {
         background-color: transparent;
+    }
+
+    .marquee {
+        overflow: hidden;
+        white-space: nowrap;
+        flex: 1;
+        position: relative;
+    }
+    
+    /* the moving text */
+    .marquee p {
+        font-size: 50px;
+        font-weight: 700;
+        display: inline-block;
+        animation: marquee 15s linear infinite;
+    }
+    
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        
+        50% {
+            transform: translateX(-100%);
+        }
+
+        50.00001%{
+            transform: translateX(100%);
+        }
+        50.01%{
+            transform: translateX(100%);
+        }
+
+        100%{
+            transform: translateX(-100);
+        }
+        
     }
 }
