@@ -14,7 +14,7 @@ async function getSong(playlist) {
     return songs
 }
 
-console.log("Calm_Song");
+console.log(Calm_Song);
 
 async function getAlbum() {
     let a = await fetch(`./songs`);
