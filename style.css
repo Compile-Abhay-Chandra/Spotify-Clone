@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Inter:wght@400;500&display=swap');
+
+
+:root {
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +13,7 @@
 }
 
 body {
+    font-family: var(--font-body);
     background-color: black;
     color: #fff;
 }
@@ -86,6 +95,7 @@ input:focus {
 }
 
 .B1 {
+    font-family: var(--font-heading);
     font-weight: 700;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -96,6 +106,7 @@ input:focus {
 }
 
 .B2 {
+    font-family: var(--font-heading);
     font-weight: 700;
     display: inline-flex;
     white-space: nowrap;
@@ -113,6 +124,7 @@ input:focus {
 }
 
 .B3 {
+    font-family: var(--font-heading);
     border: none;
     height: 70%;
     width: 20px;
@@ -120,6 +132,7 @@ input:focus {
 }
 
 .B4 {
+    font-family: var(--font-heading);
     height: 60%;
     width: 34px;
     border-radius: 50px;
@@ -314,6 +327,7 @@ input:focus {
 }
 
 .b1 {
+    font-family: var(--font-heading);
     background-color: #1f1f1f;
     width: auto;
     height: 60%;
@@ -326,6 +340,7 @@ input:focus {
 }
 
 .b2 {
+    font-family: var(--font-heading);
     color: #b3b3b3;
     border: none;
     background-color: #121212;
@@ -342,7 +357,7 @@ input:focus {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    overflow-x: auto;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -368,6 +383,7 @@ input:focus {
 }
 
 .card p {
+    font-family: var(--font-heading);
     padding: 10px;
     margin-top: 5px;
     width: 90%;
@@ -515,6 +531,7 @@ input:focus {
 }
 
 .image p {
+    font-family: var(--font-heading);
     display: flex;
     align-items: center;
 }
@@ -642,39 +659,21 @@ input:focus {
     height: 220px;
 }
 
-/* .cover-album p {
-    font-size: 50px;
-    font-weight: 700;
-} */
-
 .marquee {
     overflow: hidden;
     white-space: nowrap;
     flex: 1;
-    /* let it grow to fill available space */
     position: relative;
 }
 
-/* the moving text */
 .marquee p {
+    font-family: var(--font-heading);
     font-size: 50px;
     font-weight: 700;
     display: inline-block;
-    /* padding-left: 100%;    push it off‑screen to the right */
     animation: marquee 5s linear infinite;
     margin: 0;
-    /* reset default <p> margins */
 }
-
-/* @keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-100%);
-    }
-} */
 
 .tools {
     justify-content: space-between;
@@ -685,6 +684,7 @@ input:focus {
 }
 
 .tools p {
+    font-family: var(--font-heading);
     margin: 20px;
 }
 
@@ -804,7 +804,7 @@ input:focus {
         margin-top: 10px;
     }
 
-    .extraInf{
+    .extraInf {
         gap: 20px;
     }
 
@@ -955,7 +955,7 @@ input:focus {
         flex: 1;
         position: relative;
     }
-    
+
     /* the moving text */
     .marquee p {
         font-size: 50px;
@@ -963,26 +963,27 @@ input:focus {
         display: inline-block;
         animation: marquee 15s linear infinite;
     }
-    
+
     @keyframes marquee {
         0% {
             transform: translateX(0);
         }
-        
+
         50% {
             transform: translateX(-100%);
         }
 
-        50.00001%{
-            transform: translateX(100%);
-        }
-        50.01%{
+        50.00001% {
             transform: translateX(100%);
         }
 
-        100%{
+        50.01% {
+            transform: translateX(100%);
+        }
+
+        100% {
             transform: translateX(-100);
         }
-        
+
     }
 }

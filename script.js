@@ -133,21 +133,17 @@ function Controls(indexObj, songs, currentSong, currentSongName, className, idPr
         getCurrentTime(currentSong);
 
     };
-    // let audio = globalAudio;
     let audio = currentSong;
 
     const progress = document.querySelector('.progress');
 
     // green seek bar
     audio.addEventListener("loadeddata", () => {
-        // Clear any existing interval first
         if (progressUpdateInterval) {
             clearInterval(progressUpdateInterval);
         }
 
-        // Create new interval and store the reference
         progressUpdateInterval = setInterval(() => {
-            // Only update if audio duration is valid to prevent NaN issues
             if (!isNaN(audio.duration) && audio.duration > 0) {
                 progress.value = (audio.currentTime / audio.duration) * 100;
                 const val = (progress.value - progress.min) / (progress.max - progress.min) * 100;
@@ -156,7 +152,6 @@ function Controls(indexObj, songs, currentSong, currentSongName, className, idPr
         }, 100);
     });
 
-    // the audio time also updates when user interacts with the progress bar
     progress.addEventListener('input', function () {
         const newTime = (this.value / 100) * audio.duration;
         audio.currentTime = newTime;
@@ -210,14 +205,12 @@ async function dynamicAlbumlist(Playlist) {
 
     document.querySelector(".expand").classList.remove("hidden")
 
-    // creating album cover
     let Cover = document.querySelector(".cover-album");
     Cover.innerHTML = `<img src="http://127.0.0.1:3000/Spotify-Clone/songs/${Playlist}/logo.png" alt="cover_picture"></img>
     <p><div class="marquee">
     <p>${Playlist}</p>
   </div></p>`
 
-    // creating the list of musics inside the Playlist folder
     let songs = await getSong(`${Playlist}`);
     let songPlaylist = document.querySelector(".tracklist > tbody");
     let playlist = "";
@@ -266,7 +259,7 @@ async function dynamicPlaylist(Playlist) {
                                 d="M122.445 512c-46.029 0-83.472-29.954-83.472-66.777s37.443-66.777 83.472-66.777 83.472 29.954 83.472 66.777-37.443 66.777-83.472 66.777z" />
                         </svg>
                         <ul>
-                            <li>${((song.split("/songs/")[1]).split(".mp3")[0]).split("My_Playlist/")[1]}</li>
+                            <li>${((song.split("/songs/")[1]).split(".mp3")[0]).split("Favourite/")[1]}</li>
                             <li>Abhay</li>
                         </ul>
                     </div>`;
@@ -276,8 +269,8 @@ async function dynamicPlaylist(Playlist) {
 
 async function initializePlayer() {
 
-    await dynamicPlaylist("My_Playlist");
-    await PlayOnClickdynamicPlaylist("My_Playlist");
+    await dynamicPlaylist("Favourite");
+    await PlayOnClickdynamicPlaylist("Favourite");
 }
 
 async function PlayOnClickdynamicPlaylist(song) {
@@ -304,7 +297,6 @@ async function PlayOnClickdynamicPlaylist(song) {
             globalAudio.play()
 
             currentSongName = (songs[index].split("/songs/")[1]).split(".mp3")[0];
-            // Update display with current song name
             document.querySelector(".image > p").textContent = currentSongName;
 
             toggle.innerHTML = `
@@ -347,11 +339,9 @@ async function PlayOnClickdynamicAlbumlist(song) {
 
             currentSong.src = songs[index];
             globalAudio = currentSong;
-            // currentSong.play();
             globalAudio.play()
 
             currentSongName = (songs[index].split("/songs/")[1]).split(".mp3")[0];
-            // Update display with current song name
             document.querySelector(".image > p").textContent = currentSongName;
 
             toggle.innerHTML = `

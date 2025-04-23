@@ -13,12 +13,6 @@
 .invert{
     filter: invert(1);
 }
-.b-red{
-    border: 2px solid red;
-}
-.b-green{
-    border: 2px solid green;
-}
 .space-around{
     justify-content: space-around;
 }
