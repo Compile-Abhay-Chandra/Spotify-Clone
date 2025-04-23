@@ -31,23 +31,23 @@ async function getAlbum() {
 
 }
 
-async function getAlbumDemo() {
-    let a = await fetch(`./songs`);
-    let response = await a.text();
-    let div = document.createElement("div");
-    div.innerHTML = response;
-    let Album = [];
-    let as = div.getElementsByTagName("a");
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        let folderName = element.href.split("/");
-        Album.push(folderName);
-    }
-    console.log(Album);
-    return Album.slice(1);
+// async function getAlbumDemo() {
+//     let a = await fetch(`./songs`);
+//     let response = await a.text();
+//     let div = document.createElement("div");
+//     div.innerHTML = response;
+//     let Album = [];
+//     let as = div.getElementsByTagName("a");
+//     for (let index = 0; index < as.length; index++) {
+//         const element = as[index];
+//         let folderName = element.href.split("/");
+//         Album.push(folderName);
+//     }
+//     console.log(Album);
+//     return Album.slice(1);
 
-}
-getAlbumDemo()
+// }
+// getAlbumDemo()
 
 async function getAlbumCoverImage(playlist) {
     let a = await fetch(`./songs/${playlist}`);
