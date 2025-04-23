@@ -1,5 +1,5 @@
 async function getSong(playlist) {
-    let a = await fetch(`/songs/${playlist}`);
+    let a = await fetch(`./songs/${playlist}`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -15,7 +15,7 @@ async function getSong(playlist) {
 }
 
 async function getAlbum() {
-    let a = await fetch(`/songs`);
+    let a = await fetch(`./songs`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -31,7 +31,7 @@ async function getAlbum() {
 }
 
 async function getAlbumCoverImage(playlist) {
-    let a = await fetch(`/songs/${playlist}`);
+    let a = await fetch(`./songs/${playlist}`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -187,7 +187,7 @@ async function dynamicAlbum() {
 
     Albums.forEach((album) => {
         card += `<div class="card flex" id="${album}">
-                        <img src="/songs/${album}/logo.png" class="albumCover"
+                        <img src="./songs/${album}/logo.png" class="albumCover"
                             alt="">
                         <button class="play-button">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" fill="none">
@@ -206,7 +206,7 @@ async function dynamicAlbumlist(Playlist) {
     document.querySelector(".expand").classList.remove("hidden")
 
     let Cover = document.querySelector(".cover-album");
-    Cover.innerHTML = `<img src="/songs/${Playlist}/logo.png" alt="cover_picture"></img>
+    Cover.innerHTML = `<img src="./songs/${Playlist}/logo.png" alt="cover_picture"></img>
     <p><div class="marquee">
     <p>${Playlist}</p>
   </div></p>`
@@ -224,7 +224,7 @@ async function dynamicAlbumlist(Playlist) {
     songs.forEach((song, index) => {
         playlist += `<tr class="albumsong" id="album-${index}">
                         <td class="number">${index + 1}</td>
-                        <td class="album-logo"><img src="image/music.png" alt=""></td>
+                        <td class="album-logo"><img src="./image/music.png" alt=""></td>
                         <td class="title">
                           <div class="title-info">
                             <span class="track-name">${((song.split("/songs/")[1]).split(".mp3")[0]).split(`${Playlist}/`)[1]}</span><br>
