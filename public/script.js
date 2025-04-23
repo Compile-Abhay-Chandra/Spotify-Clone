@@ -47,7 +47,7 @@ async function getAlbumDemo() {
     return Album.slice(1);
 
 }
- await getAlbumDemo()
+getAlbumDemo()
 
 async function getAlbumCoverImage(playlist) {
     let a = await fetch(`./songs/${playlist}`);
