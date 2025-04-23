@@ -14,8 +14,6 @@ async function getSong(playlist) {
     return songs
 }
 
-console.log(Calm_Song);
-
 async function getAlbum() {
     let a = await fetch(`./songs`);
     let response = await a.text();
@@ -28,6 +26,7 @@ async function getAlbum() {
         let folderName = element.href.split("/").filter(Boolean).pop();
         Album.push(folderName);
     }
+    console.log(Album);
     return Album.slice(1);
 
 }
